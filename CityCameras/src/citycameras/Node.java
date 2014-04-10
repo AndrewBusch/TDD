@@ -21,4 +21,12 @@ public class Node {
 	public Collection<Node> getNeighbors() {
 		return neighbors;
 	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public boolean equals(Node N){
+		return N.getName().equals(this.getName());
+	}
 }
