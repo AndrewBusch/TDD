@@ -37,6 +37,7 @@ public class CityCameraPlanner
 	public CityCameraPlanner(Collection<Road> roads)
 	{
 		rNodes = new HashSet<Node>();
+		cameras = new HashSet<String>();
 		buildNodeCity(roads);
 		fillNodeCity(roads);
 		//createCameraList();
