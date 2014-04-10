@@ -44,12 +44,27 @@ public class CityCameraPlanner
 	
 	private void buildNodeCity(Collection<Road> roads){
 		for(Road R : roads) {
-			rNodes.add(new Node(R.getNeighborhood1()));
+			Node newNode1 = new Node(R.getNeighborhood1());
+			Node newNode2 = new Node(R.getNeighborhood1());
+			if(!rNodeContains(newNode1)) {
+				rNodes.add(newNode1);
+			}
+			if(!rNodeContains(newNode2)) {
+				rNodes.add(newNode2);
+			}
 		}
-		
 	}
 
-	private boolean areNeigbors(Road a, Road b) {
+	private boolean rNodeContains(Node newNode) {
+		for(Node B : rNodes) {
+			if(B.equals(newNode)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean areNeigbors(Node a, Node b) {
 		// TODO Auto-generated method stub
 		return false;
 	}
