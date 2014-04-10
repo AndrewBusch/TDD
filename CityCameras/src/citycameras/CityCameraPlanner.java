@@ -70,7 +70,6 @@ public class CityCameraPlanner
 				else {
 					boolean status = true;
 					for (Node goNode : currentNode.getNeighbors()) {
-						System.out.println(status);
 						status = status && checkNeighbors(mainNode, goNode, visited);
 					}
 					return status;
