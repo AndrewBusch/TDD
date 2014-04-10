@@ -192,4 +192,55 @@ public class CityCameraPlannerTest
 		assertTrue(f.equals(e));
 		assertTrue(g.equals(d));
 	}
+		
+	@Test
+	public void testBridgeToTerabithia()
+	{
+		final Road[] roads = {
+				new Road("A", "B"), new Road("B", "C"), new Road("C", "D"),
+				new Road("D", "A"), new Road("D", "E"), new Road("E", "F"),
+				new Road("F", "G"), new Road("G", "H"), new Road("H", "E")
+		};			
+		
+		Collection<Road> city = new HashSet<Road>();
+		for (Road r : roads) {
+			city.add(r);
+		}
+		final CityCameraPlanner cameraPlanner = new CityCameraPlanner(city); 
+		Collection<String> cameras = cameraPlanner.getCameras();
+		
+		assertEquals(2, cameraPlanner.getCameras().size());
+		assertFalse(cameras.contains("A"));
+		assertFalse(cameras.contains("B"));
+		assertFalse(cameras.contains("C"));
+		assertTrue(cameras.contains("D"));
+		assertTrue(cameras.contains("E"));
+		assertFalse(cameras.contains("F"));
+		assertFalse(cameras.contains("G"));
+		assertFalse(cameras.contains("H"));		
+	}
+	
+	@Test
+	public void testStarOfAwesomeness()
+	{
+		final Road[] roads = {
+				new Road("A", "B"), new Road("A", "C"), new Road("A", "D"),
+				new Road("A", "E"), new Road("A", "F"), new Road("A", "F")
+		};			
+		
+		Collection<Road> city = new HashSet<Road>();
+		for (Road r : roads) {
+			city.add(r);
+		}
+		final CityCameraPlanner cameraPlanner = new CityCameraPlanner(city); 
+		Collection<String> cameras = cameraPlanner.getCameras();
+		
+		assertEquals(1, cameraPlanner.getCameras().size());
+		assertTrue(cameras.contains("A"));
+		assertFalse(cameras.contains("B"));
+		assertFalse(cameras.contains("C"));
+		assertFalse(cameras.contains("D"));
+		assertFalse(cameras.contains("E"));
+		assertFalse(cameras.contains("F"));		
+	}
 }
