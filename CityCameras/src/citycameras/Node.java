@@ -11,9 +11,11 @@ import java.util.Collection;
  */
 public class Node {
 
+	String name;
 	Collection<Node> neighbors;
 	
-	public Node(){
+	public Node(String name){
+		this.name = name;
 	}
 	
 	public Collection<Node> getNeighbors() {

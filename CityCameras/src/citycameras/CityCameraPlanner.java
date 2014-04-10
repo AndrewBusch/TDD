@@ -26,6 +26,7 @@ import java.util.HashSet;
 public class CityCameraPlanner
 {
 	Collection<String> cameras;
+	Collection<Node> rNodes;
 	
 	/**
 	 * The constructor takes a collection of all of the roads in the city that
@@ -35,24 +36,24 @@ public class CityCameraPlanner
 	 */
 	public CityCameraPlanner(Collection<Road> roads)
 	{
-		Collection<Node> rNodes = new HashSet<Node>();
+		rNodes = new HashSet<Node>();
 		
-		for(Road a : roads) {
-			Node currentRoad = new Node();
-			for(Road b : roads) {
-				
-				if(areNeigbors(a, b)){
-					
-				}
-			}
-		}
+		buildNodeCity(roads);
+
 	}
 	
+	private void buildNodeCity(Collection<Road> roads){
+		for(Road R : roads) {
+			rNodes.add(new Node(R.getNeighborhood1()));
+		}
+		
+	}
+
 	private boolean areNeigbors(Road a, Road b) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
 	/**
 	 * @return a collection of all neighborhoods containing cameras
 	 */
