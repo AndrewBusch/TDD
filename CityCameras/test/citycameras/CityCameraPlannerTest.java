@@ -43,7 +43,6 @@ public class CityCameraPlannerTest
 
 		final Node nodeA = new Node("A");
 		final Node nodeB = new Node("B");
-		final Node nodeC = new Node("C");
 
 		final CityCameraPlanner cameraPlanner = new CityCameraPlanner(city);
 		

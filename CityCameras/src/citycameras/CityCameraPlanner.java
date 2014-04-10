@@ -26,8 +26,9 @@ import java.util.HashSet;
 public class CityCameraPlanner
 {
 	Collection<String> cameras;
+	
 	/**
-	 * the city in node format
+	 * stores the city in node format
 	 */
 	private Collection<Node> rNodes;
 	
@@ -42,7 +43,6 @@ public class CityCameraPlanner
 		rNodes = new HashSet<Node>();
 		cameras = new HashSet<String>();
 		buildNodeCity(roads);
-		fillNodeCity(roads);
 		createCameraList();
 		
 	}
@@ -86,17 +86,31 @@ public class CityCameraPlanner
 		if (!visited.contains(currentNode)) {
 			if (!currentNode.equals(mainNode)) {
 				visited.add(currentNode);
-				if ((rNodes.size() - 1) == visited.size()) return false;
+				if ((rNodes.size() - 1) == visited.size()) {
+					return false;
+				}
 				else {
-					boolean status = true;
-					for (Node goNode : currentNode.getNeighbors()) {
-						status = status && checkNeighbors(mainNode, goNode, visited);
-					}
-					return status;
+					return getNeighborStatus(currentNode, mainNode, visited);
 				}
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 * gets the status of all the neighbors of current node, and returns their status on
+	 * whether the node needs a camera
+	 * @param currentNode the node whose neighbors will be looked at
+	 * @param mainNode the node being checked for if it needs a camera
+	 * @param visited list of nodes that have already been looked at
+	 * @return true if the node needs a camera, false if it does not
+	 */
+	private boolean getNeighborStatus(Node currentNode, Node mainNode, Collection<Node> visited){
+		boolean status = true;
+		for (Node goNode : currentNode.getNeighbors()) {
+			status = status && checkNeighbors(mainNode, goNode, visited);
+		}
+		return status;
 	}
 	
 	/**
@@ -134,8 +148,8 @@ public class CityCameraPlanner
 	}
 
 	/**
-	 * creates a unique node for every neighbor in the city, excluding duplicates
-	 * @param roads the city from which neighbors will be turned into nodes
+	 * converts a city into nodes instead of roads and stores them in the rNode collection
+	 * @param roads the city from which roads will be converted into nodes
 	 */
 	private void buildNodeCity(Collection<Road> roads){
 		for(Road R : roads) {
@@ -148,6 +162,7 @@ public class CityCameraPlanner
 				rNodes.add(newNode2);
 			}
 		}
+		fillNodeCity(roads);
 	}
 
 	/**
