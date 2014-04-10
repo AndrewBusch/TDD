@@ -21,12 +21,15 @@ import java.util.HashSet;
  * <em>Tourist Guide</em></a> problem at the Programming Challenges website.
  * 
  * @version Mar 30, 2014
- * @author <<Your Name Here>>
+ * @author Randy Acheson & Andrew Busch
  */
 public class CityCameraPlanner
 {
 	Collection<String> cameras;
-	Collection<Node> rNodes;
+	/**
+	 * the city in node format
+	 */
+	private Collection<Node> rNodes;
 	
 	/**
 	 * The constructor takes a collection of all of the roads in the city that
@@ -44,6 +47,10 @@ public class CityCameraPlanner
 		
 	}
 	
+	
+	/**
+	 * Fills out the camera array with the names of neighbors that should have cameras
+	 */
 	private void createCameraList() {
 		for (Node node : rNodes){
 			node.setHasCamera(checkForCamera(node));
@@ -56,12 +63,25 @@ public class CityCameraPlanner
 		}
 	}
 
+	/**
+	 * Checks if a given node needs a camera or not
+	 * @param mainNode the node that will be checked for needing a camera
+	 * @return true if the node will need a camera, false if it does not
+	 */
 	private boolean checkForCamera(Node mainNode) {
 		Node currentNode = mainNode.getNeighbors().iterator().next();
 		Collection<Node> visited = new HashSet<Node>();
 		return checkNeighbors(mainNode, currentNode, visited);
 	}
 	
+	/**
+	 * checks the neighbors of an original node to see if the node needs a camera
+	 * @param mainNode the node to be given a camera or not
+	 * @param currentNode a node that is a neighbor of mainNode used to determine if a path can be created
+	 * from currentNode to every node in the graph without going through mainNode
+	 * @param visited collection of nodes that have already been added to the path
+	 * @return true if mainNode needs a camera, false if mainNode does not need a camera
+	 */
 	private boolean checkNeighbors(Node mainNode, Node currentNode, Collection<Node> visited) {
 		if (!visited.contains(currentNode)) {
 			if (!currentNode.equals(mainNode)) {
@@ -79,6 +99,10 @@ public class CityCameraPlanner
 		return true;
 	}
 	
+	/**
+	 * assigns the appropriate neighbors to the nodes in rNode
+	 * @param roads the city used to create figure out correct neighbors
+	 */
 	private void fillNodeCity(Collection<Road> roads){
 		for(Node N : rNodes) {
 			for(Road R : roads) {
@@ -87,6 +111,11 @@ public class CityCameraPlanner
 		}
 	}
 
+	/**
+	 * Decides if any of the nodes in road R need to be added to N a neighbor
+	 * @param N the node being filled out and given neighbors
+	 * @param R the road that may have its neighbors added as nodes
+	 */
 	private void decideNeighbors(Node N, Road R) {
 		if(N.getName().equals(R.getNeighborhood1())){
 			for(Node B : rNodes) {
@@ -104,6 +133,10 @@ public class CityCameraPlanner
 		}
 	}
 
+	/**
+	 * creates a unique node for every neighbor in the city, excluding duplicates
+	 * @param roads the city from which neighbors will be turned into nodes
+	 */
 	private void buildNodeCity(Collection<Road> roads){
 		for(Road R : roads) {
 			Node newNode1 = new Node(R.getNeighborhood1());
@@ -117,6 +150,11 @@ public class CityCameraPlanner
 		}
 	}
 
+	/**
+	 * @param newNode checks if rNode contains a node with the same name as newNode
+	 * @return true if rNode does contain a node with the same name as newNode, and
+	 * false if it does not
+	 */
 	private boolean rNodeContains(Node newNode) {
 		for(Node B : rNodes) {
 			if(B.equals(newNode)) {
