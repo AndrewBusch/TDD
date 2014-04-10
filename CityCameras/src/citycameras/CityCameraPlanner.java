@@ -40,7 +40,7 @@ public class CityCameraPlanner
 		cameras = new HashSet<String>();
 		buildNodeCity(roads);
 		fillNodeCity(roads);
-		//createCameraList();
+		createCameraList();
 		
 	}
 	
@@ -73,7 +73,7 @@ public class CityCameraPlanner
 		return true;
 	}
 
-	public void fillNodeCity(Collection<Road> roads) {
+	/*public void fillNodeCity(Collection<Road> roads) {
 		for(Node N : rNodes) {
 			if(N.getName().equals("A")){
 				for(Node B : rNodes) {
@@ -92,9 +92,9 @@ public class CityCameraPlanner
 				}
 			}
 		}
-	}
+	}*/
 	
-	/*public void fillNodeCity(Collection<Road> roads){
+	public void fillNodeCity(Collection<Road> roads){
 		for(Node N : rNodes) {
 			for(Road R : roads) {
 				decideNeighbors(N, R);
@@ -117,7 +117,7 @@ public class CityCameraPlanner
 				}
 			}
 		}
-	}*/
+	}
 
 	public void buildNodeCity(Collection<Road> roads){
 		for(Road R : roads) {

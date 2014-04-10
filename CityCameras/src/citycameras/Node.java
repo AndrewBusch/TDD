@@ -4,6 +4,7 @@
 package citycameras;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * @author andrew
@@ -17,6 +18,7 @@ public class Node {
 	
 	public Node(String name){
 		this.name = name;
+		neighbors = new HashSet<Node>();
 	}
 	
 	public Collection<Node> getNeighbors() {

@@ -70,6 +70,8 @@ public class CityCameraPlannerTest
 		final CityCameraPlanner cameraPlanner = new CityCameraPlanner(city);
 
 		cameraPlanner.fillNodeCity(city);
+		
+		
 	}
 	
 	@Test
