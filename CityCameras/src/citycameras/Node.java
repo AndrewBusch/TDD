@@ -13,6 +13,7 @@ public class Node {
 
 	String name;
 	Collection<Node> neighbors;
+	boolean hasCamera;
 	
 	public Node(String name){
 		this.name = name;
@@ -32,5 +33,13 @@ public class Node {
 
 	public void addNeighbor(Node newNeighbor) {
 		neighbors.add(newNeighbor);
+	}
+	
+	public boolean getHasCamera() {
+		return this.hasCamera;
+	}
+	
+	public void setHasCamera(boolean hasCamera) {
+		this.hasCamera = hasCamera;
 	}
 }

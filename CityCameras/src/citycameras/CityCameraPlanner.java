@@ -37,12 +37,41 @@ public class CityCameraPlanner
 	public CityCameraPlanner(Collection<Road> roads)
 	{
 		rNodes = new HashSet<Node>();
-		
 		buildNodeCity(roads);
 		fillNodeCity(roads);
-
+		createCameraList();
+		
 	}
 	
+	private void createCameraList() {
+		for (Node node : rNodes){
+			node.setHasCamera(checkForCamera(node));
+		}
+	}
+
+	private boolean checkForCamera(Node mainNode) {
+		Collection<Node> nodes = mainNode.getNeighbors();
+		Node currentNode = nodes.iterator().next();
+		Collection<Node> visited = new HashSet<Node>();
+		return checkNeighbors(mainNode, currentNode, visited);
+	}
+	
+	private boolean checkNeighbors(Node mainNode, Node currentNode, Collection<Node> visited) {
+		if (!visited.contains(currentNode)) {
+			if (!currentNode.equals(mainNode)) {
+				visited.add(currentNode);
+				if ((rNodes.size() - 1) == visited.size()) return false;
+				else {
+					for (Node goNode : currentNode.getNeighbors()) {
+						return checkNeighbors(mainNode, goNode, visited);
+					}
+				}
+			}
+		}
+		
+		return true;
+	}
+
 	private void fillNodeCity(Collection<Road> roads){
 		for(Node N : rNodes) {
 			for(Road R : roads) {
@@ -84,11 +113,6 @@ public class CityCameraPlanner
 				return true;
 			}
 		}
-		return false;
-	}
-	
-	public boolean areNeigbors(Node a, Node b) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
