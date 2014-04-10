@@ -29,4 +29,8 @@ public class Node {
 	public boolean equals(Node N){
 		return N.getName().equals(this.getName());
 	}
+
+	public void addNeighbor(Node newNeighbor) {
+		neighbors.add(newNeighbor);
+	}
 }

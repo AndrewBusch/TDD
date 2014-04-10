@@ -39,9 +39,32 @@ public class CityCameraPlanner
 		rNodes = new HashSet<Node>();
 		
 		buildNodeCity(roads);
+		fillNodeCity(roads);
 
 	}
 	
+	private void fillNodeCity(Collection<Road> roads){
+		for(Node N : rNodes) {
+			for(Road R : roads) {
+				if(N.getName().equals(R.getNeighborhood1())){
+					for(Node B : rNodes) {
+						if(B.getName().equals(R.getNeighborhood2())) {
+							N.addNeighbor(B);
+						}
+					}
+				}
+				if(N.getName().equals(R.getNeighborhood2())){
+					for(Node B : rNodes) {
+						if(B.getName().equals(R.getNeighborhood1())) {
+							N.addNeighbor(B);
+						}
+					}
+				}
+			}
+		}
+	}
+
+
 	public void buildNodeCity(Collection<Road> roads){
 		for(Road R : roads) {
 			Node newNode1 = new Node(R.getNeighborhood1());
