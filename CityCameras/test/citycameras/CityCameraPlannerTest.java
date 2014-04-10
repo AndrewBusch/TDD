@@ -30,7 +30,7 @@ public class CityCameraPlannerTest
 	}
 	
 	@Test
-	public void testNodeNeighbors()
+	public void testBuildNodes()
 	{
 		final Road[] roads = {
 				new Road("A", "B"), new Road("B", "C")	
@@ -41,8 +41,40 @@ public class CityCameraPlannerTest
 			city.add(r);
 		}
 
+		final Node nodeA = new Node("A");
+		final Node nodeD = new Node("D");
+
 		final CityCameraPlanner cameraPlanner = new CityCameraPlanner(city);
 		cameraPlanner.buildNodeCity(city);
+		
+		assertTrue(cameraPlanner.rNodeContains(nodeA));
+		assertFalse(cameraPlanner.rNodeContains(nodeD));
+	}
+	
+	@Test
+	public void testUniqueNodes()
+	{
+		final Road[] roads = {
+				new Road("A", "B"), new Road("B", "C")	
+			};
+		
+		Collection<Road> city = new HashSet<Road>();
+		for (Road r : roads) {
+			city.add(r);
+		}
+
+		final Node nodeA = new Node("A");
+		final Node nodeB = new Node("B");
+		final Node nodeC = new Node("C");
+		final Node nodeD = new Node("D");
+
+		final CityCameraPlanner cameraPlanner = new CityCameraPlanner(city);
+		cameraPlanner.buildNodeCity(city);
+		
+		for (Node node : cameraPlanner.getrNodes())
+		{
+			
+		}
 		
 	}
 	

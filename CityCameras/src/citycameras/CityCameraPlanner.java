@@ -32,7 +32,7 @@ public class CityCameraPlanner
 	 * The constructor takes a collection of all of the roads in the city that
 	 * connect neighborhoods and initializes the instance so that it can provide
 	 * the locations of the cameras via a couple of query methods.
-	 * @param roads the collection of roads that connect nighborhoods in the city
+	 * @param roads the collection of roads that connect neighborhoods in the city
 	 */
 	public CityCameraPlanner(Collection<Road> roads)
 	{
@@ -42,7 +42,7 @@ public class CityCameraPlanner
 
 	}
 	
-	private void buildNodeCity(Collection<Road> roads){
+	public void buildNodeCity(Collection<Road> roads){
 		for(Road R : roads) {
 			Node newNode1 = new Node(R.getNeighborhood1());
 			Node newNode2 = new Node(R.getNeighborhood1());
@@ -55,7 +55,7 @@ public class CityCameraPlanner
 		}
 	}
 
-	private boolean rNodeContains(Node newNode) {
+	public boolean rNodeContains(Node newNode) {
 		for(Node B : rNodes) {
 			if(B.equals(newNode)) {
 				return true;
@@ -64,7 +64,7 @@ public class CityCameraPlanner
 		return false;
 	}
 	
-	private boolean areNeigbors(Node a, Node b) {
+	public boolean areNeigbors(Node a, Node b) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -83,5 +83,12 @@ public class CityCameraPlanner
 	 */
 	public boolean hasCamera(String neighborhood) {
 		return cameras.contains(neighborhood);
+	}
+	
+	/**
+	 * @return the list of nodes
+	 */
+	public Collection<Node> getrNodes() {
+		return this.rNodes;
 	}
 }
