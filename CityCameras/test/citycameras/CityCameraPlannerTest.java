@@ -71,10 +71,16 @@ public class CityCameraPlannerTest
 		final CityCameraPlanner cameraPlanner = new CityCameraPlanner(city);
 		cameraPlanner.buildNodeCity(city);
 		
+		int nodeACount = 0;
+		int nodeBCount = 0;
 		for (Node node : cameraPlanner.getrNodes())
 		{
-			
+			if (node.equals(nodeB)) nodeBCount++;
+			else if (node.equals(nodeA)) nodeACount++;
 		}
+		
+		assertEquals(1, nodeACount);
+		assertEquals(1, nodeBCount);
 		
 	}
 	
@@ -110,5 +116,81 @@ public class CityCameraPlannerTest
 			final CityCameraPlanner cameraPlanner = new CityCameraPlanner(city); 
 			assertEquals(0, cameraPlanner.getCameras().size());
 			assertFalse(cameraPlanner.getCameras().contains("B"));
+	}
+	
+	@Test
+	public void testCurlyQueue()
+	{
+		final Road[] roads = {
+				new Road("A", "B"), new Road("B", "C"), new Road("C", "D"),
+				new Road("D", "A"), new Road("D", "E"), new Road("E", "F")
+		};			
+		
+		Collection<Road> city = new HashSet<Road>();
+		for (Road r : roads) {
+			city.add(r);
+		}
+		final CityCameraPlanner cameraPlanner = new CityCameraPlanner(city); 
+		Collection<String> cameras = cameraPlanner.getCameras();
+		
+		assertEquals(2, cameraPlanner.getCameras().size());
+		assertFalse(cameras.contains("A"));
+		assertFalse(cameras.contains("B"));
+		assertFalse(cameras.contains("C"));
+		assertTrue(cameras.contains("D"));
+		assertTrue(cameras.contains("E"));
+		assertFalse(cameras.contains("F"));
+	}
+	
+	@Test
+	public void testDoubleLoop()
+	{
+		final Road[] roads = {
+				new Road("A", "B"), new Road("B", "C"), new Road("C", "D"),
+				new Road("D", "A"), new Road("D", "E"), new Road("E", "F"),
+				new Road("F", "G"), new Road("G", "D")
+		};			
+		
+		Collection<Road> city = new HashSet<Road>();
+		for (Road r : roads) {
+			city.add(r);
+		}
+		final CityCameraPlanner cameraPlanner = new CityCameraPlanner(city); 
+		Collection<String> cameras = cameraPlanner.getCameras();
+		
+		assertEquals(1, cameraPlanner.getCameras().size());
+		assertFalse(cameras.contains("A"));
+		assertFalse(cameras.contains("B"));
+		assertFalse(cameras.contains("C"));
+		assertTrue(cameras.contains("D"));
+		assertFalse(cameras.contains("E"));
+		assertFalse(cameras.contains("F"));
+		assertFalse(cameras.contains("G"));
+	}
+	
+	@Test
+	public void testPretzel()
+	{
+		final Road[] roads = {
+				new Road("A", "B"), new Road("B", "C"), new Road("C", "D"),
+				new Road("D", "A"), new Road("D", "E"), new Road("E", "F"),
+				new Road("F", "G"), new Road("G", "D"), new Road("A", "E")
+		};			
+		
+		Collection<Road> city = new HashSet<Road>();
+		for (Road r : roads) {
+			city.add(r);
+		}
+		final CityCameraPlanner cameraPlanner = new CityCameraPlanner(city); 
+		Collection<String> cameras = cameraPlanner.getCameras();
+		
+		assertEquals(0, cameraPlanner.getCameras().size());
+		assertFalse(cameras.contains("A"));
+		assertFalse(cameras.contains("B"));
+		assertFalse(cameras.contains("C"));
+		assertFalse(cameras.contains("D"));
+		assertFalse(cameras.contains("E"));
+		assertFalse(cameras.contains("F"));
+		assertFalse(cameras.contains("G"));
 	}
 }
