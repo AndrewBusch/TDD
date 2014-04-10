@@ -69,7 +69,6 @@ public class CityCameraPlannerTest
 		final Node nodeD = new Node("D");
 
 		final CityCameraPlanner cameraPlanner = new CityCameraPlanner(city);
-		cameraPlanner.buildNodeCity(city);
 		
 		int nodeACount = 0;
 		int nodeBCount = 0;
