@@ -68,9 +68,12 @@ public class CityCameraPlanner
 				visited.add(currentNode);
 				if ((rNodes.size() - 1) == visited.size()) return false;
 				else {
+					boolean status = true;
 					for (Node goNode : currentNode.getNeighbors()) {
-						return checkNeighbors(mainNode, goNode, visited);
+						System.out.println(status);
+						status = status && checkNeighbors(mainNode, goNode, visited);
 					}
+					return status;
 				}
 			}
 		}
