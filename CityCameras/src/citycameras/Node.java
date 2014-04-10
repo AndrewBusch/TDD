@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.HashSet;
 
 /**
- * @author andrew
  *
  */
 public class Node {

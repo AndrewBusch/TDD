@@ -30,51 +30,6 @@ public class CityCameraPlannerTest
 	}
 	
 	@Test
-	public void testBuildNodes()
-	{
-		final Road[] roads = {
-				new Road("A", "B"), new Road("B", "C")	
-			};
-		
-		Collection<Road> city = new HashSet<Road>();
-		for (Road r : roads) {
-			city.add(r);
-		}
-
-		final Node nodeA = new Node("A");
-		final Node nodeD = new Node("D");
-
-		final CityCameraPlanner cameraPlanner = new CityCameraPlanner(city);
-		cameraPlanner.buildNodeCity(city);
-		
-		assertTrue(cameraPlanner.rNodeContains(nodeA));
-		assertFalse(cameraPlanner.rNodeContains(nodeD));
-	}
-	
-	@Test
-	public void testFillNodeCity()
-	{
-		final Road[] roads = {
-				new Road("A", "B"), new Road("B", "C")	
-			};
-		
-		Collection<Road> city = new HashSet<Road>();
-		for (Road r : roads) {
-			city.add(r);
-		}
-
-		final Node nodeA = new Node("A");
-		final Node nodeB = new Node("B");
-		final Node nodeC = new Node("C");
-		
-		final CityCameraPlanner cameraPlanner = new CityCameraPlanner(city);
-
-		cameraPlanner.fillNodeCity(city);
-		
-		
-	}
-	
-	@Test
 	public void testUniqueNodes()
 	{
 		final Road[] roads = {
@@ -99,7 +54,7 @@ public class CityCameraPlannerTest
 		{
 			if (node.equals(nodeB)) nodeBCount++;
 			else if (node.equals(nodeA)) nodeACount++;
-			else if (node.equals(nodeC)) nodeCCount++;
+			else nodeCCount++;
 		}
 		
 		assertEquals(1, nodeACount);
@@ -191,6 +146,8 @@ public class CityCameraPlannerTest
 		assertFalse(cameras.contains("E"));
 		assertFalse(cameras.contains("F"));
 		assertFalse(cameras.contains("G"));
+		assertTrue(cameraPlanner.hasCamera("D"));
+		assertFalse(cameraPlanner.hasCamera("G"));
 	}
 	
 	@Test
@@ -217,5 +174,22 @@ public class CityCameraPlannerTest
 		assertFalse(cameras.contains("E"));
 		assertFalse(cameras.contains("F"));
 		assertFalse(cameras.contains("G"));
+	}
+	
+	@Test
+	public void testEquals() {
+		Road a = new Road("A", "B");
+		Road b = new Road("A", "B");
+		Road c = new Road("B", "C");
+		Road d = new Road("B", null);
+		Road e = new Road(null, "G");
+		Road f = new Road(null, "G");
+		Road g = new Road("B", null);
+
+		assertTrue(a.equals(b));
+		assertFalse(b.equals(c));
+		assertFalse(d.equals(c));
+		assertTrue(f.equals(e));
+		assertTrue(g.equals(d));
 	}
 }
