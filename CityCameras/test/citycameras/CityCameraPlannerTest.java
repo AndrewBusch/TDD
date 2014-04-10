@@ -23,6 +23,30 @@ import org.junit.Test;
 public class CityCameraPlannerTest
 {
 	@Test
+	public void testNodeName() 
+	{
+		final Node node = new Node("A");
+		assertEquals("A", node.getName());
+	}
+	
+	@Test
+	public void testNodeNeighbors()
+	{
+		final Road[] roads = {
+				new Road("A", "B"), new Road("B", "C")	
+			};
+		
+		Collection<Road> city = new HashSet<Road>();
+		for (Road r : roads) {
+			city.add(r);
+		}
+
+		final CityCameraPlanner cameraPlanner = new CityCameraPlanner(city);
+		cameraPlanner.buildNodeCity(city);
+		
+	}
+	
+	@Test
 	public void testStraightLineOfThree()
 	{
 		final Road[] roads = {
